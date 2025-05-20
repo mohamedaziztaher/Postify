@@ -21,7 +21,7 @@ Postify is a modern social media Android application built with Material Design 
 
 ### Profile & Social
 <div style="display: flex; gap: 10px;">
-    <img src="app/src/main/assets/profile.png" width="200" alt="Profile Screen"/>
+    <img src="app/src/main/assets/profileScreen.png" width="200" alt="Profile Screen"/>
     <img src="app/src/main/assets/othersProfileScreen.png" width="200" alt="Other User Profile"/>
 </div>
 
