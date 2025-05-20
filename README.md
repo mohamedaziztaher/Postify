@@ -1,80 +1,81 @@
 # Postify - Social Media Android App
 
 ## Overview
-Postify is a modern social media Android application that allows users to share moments, connect with others, and engage with content. Built with Material Design 3 principles and Firebase backend, it provides a seamless and intuitive user experience.
+Postify is a modern social media Android application built with Material Design 3 and Firebase, enabling users to share moments, connect with others, and engage with content through an intuitive and visually appealing interface.
 
 ## Features
 
 ### Authentication
 - Email/Password registration and login
-- Profile completion flow
-- Secure authentication using Firebase Auth
-- Logout confirmation dialog
+- Profile completion workflow
+- Secure Firebase Authentication
+- Elegant logout dialog
+- Session management
 
 ### Posts
 - Create posts with images and captions
-- Like and comment on posts
+- Image upload via camera or gallery
+- Like and comment functionality
 - Real-time post updates
-- Delete posts with confirmation
-- Image upload to Cloudinary
-- Dynamic like button states
-- Click on posts to view author profiles
+- Post deletion with confirmation
+- Cloudinary image storage
+- Dynamic image loading
+- Adaptive layouts for different content types
 
-### Profile Management
+### Profile System
 - Customizable user profiles
 - Profile picture upload
-- Bio and username editing
-- View personal posts grid
+- Bio customization
+- User posts grid view
 - View other users' profiles
-- Camera and gallery image selection
+- Profile completion reminders
+- Circular profile images
 
 ### Social Features
 - Interactive post feed
 - Real-time comment system
-- Like/Unlike posts with visual feedback
-- User-to-user profile navigation
-- Empty state handling for no posts
+- Like/Unlike animations
+- User-to-user navigation
+- Post author details
+- Comment threading
+- Timestamp formatting
 
 ### UI/UX
 - Material Design 3 implementation
+- Custom splash screen
 - Responsive layouts
-- Dynamic color theming
-- Like animation and color changes
-- Improved comment section UI
-- Modern bottom sheets for image picking
-- Confirmation dialogs for important actions
+- Dynamic theme colors
+- Bottom sheet dialogs
+- Loading indicators
+- Empty state handling
+- Elegant animations
+- Error feedback
+- Pull-to-refresh
 
 ## Technical Stack
 
 ### Architecture
 - MVVM Architecture Pattern
 - Fragment-based navigation
-- ViewBinding for view interactions
-- Clean separation of concerns
+- ViewBinding for views
+- Clean Architecture principles
+- Repository Pattern
 
 ### Backend Services
 - Firebase Authentication
 - Firebase Realtime Database
-- Cloudinary for image storage
+- Cloudinary CDN
+- Firebase Cloud Storage
 
 ### Libraries
-- Android Navigation Component
-- Glide for image loading
+- AndroidX Core KTX
+- Material Components
+- Navigation Component
+- Glide for images
+- Cloudinary Android
+- Firebase SDK
+- ViewBinding
 - Material Design Components
-- CloudinaryAndroid
-- AndroidX libraries
-
-## Setup Instructions
-1. Clone the repository
-2. Open project in Android Studio
-3. Configure Firebase:
-   - Create a new Firebase project
-   - Add your `google-services.json`
-   - Enable Authentication, Realtime Database
-4. Configure Cloudinary:
-   - Add Cloudinary credentials
-   - Configure upload preset
-5. Build and run the project
 
 
 
