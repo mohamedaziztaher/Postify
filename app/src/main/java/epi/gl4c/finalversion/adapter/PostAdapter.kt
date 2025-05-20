@@ -26,6 +26,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import epi.gl4c.finalversion.auth.LoginActivity
 import epi.gl4c.finalversion.model.Comment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PostAdapter (
     private val context: Context,
@@ -61,24 +62,36 @@ class PostAdapter (
             holder.ivPublicationImage.visibility = View.GONE
         }
 
-        // Load username from Firebase using the user ID from the publication
+        // Load username and user avatar from Firebase using the user ID from the publication
         val userId1 = publication.getUserId()
         if (userId1 != null) {
-            usersRef!!.child(userId1).addListenerForSingleValueEvent(object : ValueEventListener {
+            usersRef.child(userId1).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val username = snapshot.child("fullName").getValue(
-                        String::class.java
-                    )
-                    holder.tvUsername.setText(username ?: "User")
+                    val username = snapshot.child("username").getValue(String::class.java)
+                    val photoUrl = snapshot.child("photoUrl").getValue(String::class.java)
+
+                    holder.tvUsername.text = username ?: "User"
+
+                    if (!photoUrl.isNullOrEmpty()) {
+                        Glide.with(context)
+                            .load(photoUrl)
+                            .placeholder(R.drawable.ic_person)  // a default avatar image in your drawable
+                            .circleCrop() // optional, to make avatar circular
+                            .into(holder.ivUserAvatar)
+                    } else {
+                        holder.ivUserAvatar.setImageResource(R.drawable.ic_person)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("FirebaseError", "Could not fetch username: " + error.message)
-                    holder.tvUsername.setText("User")
+                    Log.e("FirebaseError", "Could not fetch user data: ${error.message}")
+                    holder.tvUsername.text = "User"
+                    holder.ivUserAvatar.setImageResource(R.drawable.ic_person)
                 }
             })
         } else {
-            holder.tvUsername.setText("User")
+            holder.tvUsername.text = "User"
+            holder.ivUserAvatar.setImageResource(R.drawable.ic_person)
         }
 
         // Load timestamp
@@ -166,47 +179,76 @@ class PostAdapter (
     private fun updateLikeButton(button: MaterialButton, publicationId: String) {
         if (publicationId.isEmpty()) {
             button.text = "0 J'aime"
+            button.icon = context.getDrawable(R.drawable.ic_like_outline)
+            button.isSelected = false
             return
         }
-        likesRef!!.child(publicationId).addListenerForSingleValueEvent(object : ValueEventListener {
+        
+        likesRef.child(publicationId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val likeCount = snapshot.childrenCount
                 button.text = "$likeCount J'aime"
+
+                val currentUserId = mAuth.currentUser?.uid
+                val isLiked = currentUserId != null && snapshot.hasChild(currentUserId)
+                
+                button.isSelected = isLiked
+                button.icon = context.getDrawable(
+                    if (isLiked) R.drawable.ic_like_filled else R.drawable.ic_like_outline
+                )
+                button.setIconTintResource(R.color.like_button_color)
+                button.setTextColor(context.getColorStateList(R.color.like_button_color))
             }
 
             override fun onCancelled(error: DatabaseError) {
                 button.text = "0 J'aime"
+                button.icon = context.getDrawable(R.drawable.ic_like_outline)
+                button.isSelected = false
             }
         })
     }
 
     private fun deletePublication(publicationId: String?, position: Int) {
         if (publicationId == null) {
-            Toast.makeText(context, "Erreur : ID de publication invalide", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(context, "Error: Invalid post ID", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Delete the publication from Firebase
-        publicationsRef!!.child(publicationId).removeValue()
-            .addOnCompleteListener { task: Task<Void?> ->
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.delete_post_title)
+            .setMessage(R.string.delete_post_message)
+            .setIcon(R.drawable.ic_delete)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                deletePostFromFirebase(publicationId, position)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .create()
+            .show()
+    }
+
+    private fun deletePostFromFirebase(publicationId: String, position: Int) {
+        publicationsRef.child(publicationId).removeValue()
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Remove from local list and update UI
-                    publications!!.removeAt(position)
+                    publications.removeAt(position)
                     notifyItemRemoved(position)
                     notifyItemRangeChanged(position, publications.size)
-                    Toast.makeText(context, "publicaton supprimée", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.delete_post_success, Toast.LENGTH_SHORT).show()
+                    
+                    // Delete associated likes and comments
+                    likesRef.child(publicationId).removeValue()
                 } else {
                     Toast.makeText(
                         context,
-                        "Erreur lors de la suppression : " + task.exception!!.message,
+                        context.getString(R.string.delete_post_error, task.exception?.message),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
             }
-
-        // Delete associated likes
-        likesRef!!.child(publicationId).removeValue() // Fire-and-forget, no callback needed
     }
 
     override fun getItemCount(): Int {

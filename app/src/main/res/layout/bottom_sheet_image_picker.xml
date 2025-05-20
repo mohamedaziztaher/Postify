@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/prendre_une_photo"
-        android:textColor="@color/black"
+        android:textColor="@color/onBackground"
         app:icon="@drawable/ic_camera"
-        app:iconTint="@color/black"
+        app:iconTint="@color/onBackground"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_marginBottom="8dp"/>
 
@@ -30,9 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choisir_depuis_la_galerie"
-        android:textColor="@color/black"
+        android:textColor="@color/onBackground"
         app:icon="@drawable/ic_gallery"
-        app:iconTint="@color/black"
+        app:iconTint="@color/onBackground"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
 </LinearLayout>

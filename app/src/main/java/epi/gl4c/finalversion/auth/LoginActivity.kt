@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     fun showSignupFragment() {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, SignupFragment().apply {
-                onSignupSuccess = { redirectToMain() }
+                onSignupSuccess = { showLoginFragment() } // Redirect to login screen
             })
             .addToBackStack("signup")
             .commit()

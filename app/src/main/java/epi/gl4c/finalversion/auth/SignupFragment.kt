@@ -78,6 +78,7 @@ class SignupFragment : Fragment() {
             id = userId,
             username = username,
             email = email,
+            isProfileComplete = false,
             createdAt = System.currentTimeMillis()
         )
 

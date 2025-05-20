@@ -14,10 +14,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="create_account">Create Account</string>
-    <string name="dont_have_account">Don\'t have an account? Sign up</string>
-    <string name="already_have_account">Already have an account? Login</string>
+    <string name="already_have_account">Already have an account?</string>
     <string name="sign_out">Sign Out</string>
 
     <!-- Navigation -->
@@ -47,6 +44,10 @@
     <string name="delete_post">Delete Post</string>
     <string name="post_content">Post Content</string>
     <string name="delete_post_confirmation">Are you sure you want to delete this post? This action cannot be undone.</string>
+    <string name="delete_post_title">Delete Post</string>
+    <string name="delete_post_message">Are you sure you want to delete this post? This action cannot be undone.</string>
+    <string name="delete_post_success">Post deleted successfully</string>
+    <string name="delete_post_error">Error deleting post: %1$s</string>
 
     <!-- Search -->
     <string name="search_users">Search users...</string>
@@ -69,5 +70,27 @@
     <string name="prendre_une_photo">Prendre une photo</string>
     <string name="choisir_depuis_la_galerie">Choisir depuis la galerie</string>
     <string name="publiez_vos_moments_en_explorant_la_tunisie">Publiez Vos Moments En Explorant La Tunisie !</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="complete_your_profile_to_get_the_best_experience">Complete your profile to get the best experience</string>
+    <string name="complete_now">Complete Now</string>
+    <string name="skip_for_now">Skip for now</string>
+    <string name="change_profile_photo">Change Profile Photo</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="accueil">Accueil</string>
+    <string name="profil">Profil</string>
+    <string name="_2h_ago">2h ago</string>
+    <string name="this_is_a_sample_comment_text">This is a sample comment text...</string>
+    <string name="_0_j_aime">0 J\'aime</string>
+    <string name="caption">Caption</string>
+    <string name="supprimer_la_publication">Supprimer la publication</string>
+    <string name="just_now">Just now</string>
+    <string name="notifications">Notifications</string>
+    <string name="param_tres">Paramètres</string>
+    <string name="se_d_connecter">Se déconnecter</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 
 </resources>

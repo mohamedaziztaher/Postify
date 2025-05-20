@@ -10,6 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import epi.gl4c.finalversion.R
 import epi.gl4c.finalversion.auth.LoginActivity
 import epi.gl4c.finalversion.databinding.ActivityMainBinding
+import epi.gl4c.finalversion.profile.ProfileFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,11 +92,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleLogout() {
-        auth.currentUser?.let {
-            auth.signOut()
-            Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
-        }
-        navigateToLogin(clearTask = true)
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.logout_title)
+            .setMessage(R.string.logout_message)
+            .setIcon(R.drawable.ic_logout)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                auth.signOut()
+                Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                navigateToLogin(clearTask = true)
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.no) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .create()
+            .show()
     }
 
     override fun onStart() {

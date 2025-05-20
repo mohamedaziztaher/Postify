@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -37,23 +38,36 @@ class CommentAdapter(
             DateUtils.MINUTE_IN_MILLIS
         )
 
-        // Fetch username from Firebase using the userId stored in the comment
-        comment.userId?.let {
-            usersRef.child(it).addListenerForSingleValueEvent(object : ValueEventListener {
+        // Fetch username and avatar from Firebase using the userId stored in the comment
+        comment.userId?.let { userId ->
+            usersRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    // Get the full name from the user data
                     val username = snapshot.child("username").getValue(String::class.java)
+                    val photoUrl = snapshot.child("photoUrl").getValue(String::class.java)
+
                     holder.tvUsername.text = username ?: "User"
+
+                    if (!photoUrl.isNullOrEmpty()) {
+                        Glide.with(holder.itemView.context)
+                            .load(photoUrl)
+                            .placeholder(R.drawable.ic_person)  // your default avatar drawable
+                            .circleCrop()  // optional for circular avatar
+                            .into(holder.ivAvatar)
+                    } else {
+                        holder.ivAvatar.setImageResource(R.drawable.ic_person)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     holder.tvUsername.text = "User"
+                    holder.ivAvatar.setImageResource(R.drawable.ic_person)
                 }
             })
+        } ?: run {
+            holder.tvUsername.text = "User"
+            holder.ivAvatar.setImageResource(R.drawable.ic_person)
         }
 
-        // Set default avatar for the comment
-        holder.ivAvatar.setImageResource(R.drawable.ic_person) // Default avatar
     }
 
     override fun getItemCount(): Int = comments.size

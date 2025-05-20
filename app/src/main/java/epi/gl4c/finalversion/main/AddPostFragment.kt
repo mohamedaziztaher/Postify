@@ -65,13 +65,6 @@ class AddPostFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         publicationsRef = FirebaseDatabase.getInstance().getReference("publications")
         Log.d(TAG, "onCreate: Firebase reference: ${publicationsRef.toString()}")
-
-        val cloudinaryConfig = hashMapOf(
-            "cloud_name" to "dip6whhie",
-            "api_key" to "742521121998967",
-            "api_secret" to "yrKK6LSpsjNMz9_yBoDP5hwUT9E"
-        )
-        MediaManager.init(requireContext(), cloudinaryConfig)
     }
 
     override fun onCreateView(

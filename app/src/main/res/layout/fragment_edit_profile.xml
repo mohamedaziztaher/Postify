@@ -1,14 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.EditProfileFragment">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-</FrameLayout>
+        <!-- Profile Picture -->
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile_placeholder"
+            android:contentDescription="@string/profile_picture"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/circle_background"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Change Photo Text -->
+        <TextView
+            android:id="@+id/tvChangePhoto"
+            android:layout_width="162dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/change_profile_photo"
+            android:textColor="#3897f0"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Username -->
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="321dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="32dp"
+            android:background="@null"
+            android:drawablePadding="8dp"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:paddingBottom="8dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="327dp"
+            android:layout_height="2dp"
+            android:background="#CCCCCC" />
+
+        <!-- Bio -->
+        <EditText
+            android:id="@+id/etBio"
+            android:layout_width="326dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="@string/bio"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:paddingBottom="8dp"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_background"
+            android:backgroundTint="#3897f0"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/primary"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+
+</ScrollView>

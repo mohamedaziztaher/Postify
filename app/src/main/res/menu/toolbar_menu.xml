@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Notification icon (optional) -->
+    <item
+        android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/notifications"
+        android:contentDescription="@string/notifications"
+        app:showAsAction="ifRoom" />
+
+    <!-- Settings icon (optional) -->
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/param_tres"
+        android:contentDescription="@string/param_tres"
+        app:showAsAction="ifRoom" />
+
+    <!-- Logout -->
     <item
         android:id="@+id/action_logout"
-        android:title="Se déconnecter"
         android:icon="@drawable/ic_logout"
+        android:title="@string/se_d_connecter"
+        android:contentDescription="@string/se_d_connecter"
         app:showAsAction="ifRoom" />
 </menu>

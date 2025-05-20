@@ -14,6 +14,6 @@
         android:label="Ajouter" />
     <fragment
         android:id="@+id/nav_profile"
-        android:name="epi.gl4c.finalversion.main.ProfileFragment"
+        android:name="epi.gl4c.finalversion.profile.ProfileFragment"
         android:label="Profil" />
 </navigation>
