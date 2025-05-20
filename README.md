@@ -1,5 +1,13 @@
 # Postify - Social Media Android App
 
+<a href="https://github.com/medaziztaher">
+  <img src="https://avatars.githubusercontent.com/u/medaziztaher?v=4" width="50px;" alt="medaziztaher"/>
+</a>
+<a href="https://github.com/kamel-toumi">
+  <img src="https://avatars.githubusercontent.com/u/kamel-toumi?v=4" width="50px;" alt="kameltoumi"/>
+</a>
+
+
 ## Overview
 Postify is a modern social media Android application built with Material Design 3 and Firebase, enabling users to share moments, connect with others, and engage with content through an intuitive and visually appealing interface.
 
