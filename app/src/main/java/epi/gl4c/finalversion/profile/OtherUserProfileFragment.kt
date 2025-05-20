@@ -61,6 +61,8 @@ class OtherUserProfileFragment : Fragment() {
         databaseRef = FirebaseDatabase.getInstance().getReference("users").child(userId)
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                if (!isAdded) return  // Check if fragment is attached
+                
                 val username = snapshot.child("username").getValue(String::class.java) ?: "User"
                 val bio = snapshot.child("bio").getValue(String::class.java) ?: ""
                 val photoUrl = snapshot.child("photoUrl").getValue(String::class.java)
@@ -68,6 +70,8 @@ class OtherUserProfileFragment : Fragment() {
                 binding.profileName.text = username
                 binding.profileBio.text = bio
 
+                if (!isAdded) return  // Check again before loading image
+                
                 if (!photoUrl.isNullOrEmpty()) {
                     Glide.with(requireContext())
                         .load(photoUrl)
@@ -78,7 +82,8 @@ class OtherUserProfileFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, "Error loading user data", Toast.LENGTH_SHORT).show()
+                if (!isAdded) return
+                Toast.makeText(requireContext(), "Error loading user data", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -88,6 +93,8 @@ class OtherUserProfileFragment : Fragment() {
         postsRef.orderByChild("userId").equalTo(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    if (!isAdded) return  // Check if fragment is attached
+                    
                     userPostsList.clear()
                     for (postSnapshot in snapshot.children) {
                         val imageUrl = postSnapshot.child("imageUrl").getValue(String::class.java)
@@ -99,7 +106,8 @@ class OtherUserProfileFragment : Fragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, "Error loading posts", Toast.LENGTH_SHORT).show()
+                    if (!isAdded) return
+                    Toast.makeText(requireContext(), "Error loading posts", Toast.LENGTH_SHORT).show()
                 }
             })
     }

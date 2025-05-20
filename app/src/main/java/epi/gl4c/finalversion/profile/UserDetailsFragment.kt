@@ -27,7 +27,7 @@ class UserDetailsFragment : Fragment() {
     private lateinit var profileBio: TextView
     private lateinit var editProfileBtn: Button
     private lateinit var postsGrid: GridView
-
+    private lateinit var postsRef: DatabaseReference
     private lateinit var databaseRef: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
@@ -44,6 +44,7 @@ class UserDetailsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
         databaseRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser!!.uid)
+        postsRef = FirebaseDatabase.getInstance().getReference("publications") // Initialize postsRef here
 
         // Bind views
         profileImage = view.findViewById(R.id.profile_image)
@@ -57,7 +58,7 @@ class UserDetailsFragment : Fragment() {
         postsGrid.adapter = userPostsAdapter
 
         loadUserData()
-        loadUserPosts()
+        loadUserPosts(currentUser.uid) // Pass the current user ID
 
         editProfileBtn.setOnClickListener {
             (parentFragment as? ProfileFragment)?.showEditProfile()
@@ -69,19 +70,22 @@ class UserDetailsFragment : Fragment() {
     private fun loadUserData() {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                if (!isAdded) return  // Check if fragment is attached
+                
                 val username = snapshot.child("username").getValue(String::class.java) ?: "User"
                 val bio = snapshot.child("bio").getValue(String::class.java) ?: ""
-                val profileImageUrl = snapshot.child("photoUrl").getValue(String::class.java)
+                val photoUrl = snapshot.child("photoUrl").getValue(String::class.java)
 
-                // Log the retrieved user data
-                Log.d("UserDetailsFragment", "Username: $username, Bio: $bio, ProfileImageUrl: $profileImageUrl")
+                Log.d("UserDetailsFragment", "Username: $username, Bio: $bio, ProfileImageUrl: $photoUrl")
 
                 profileName.text = username
                 profileBio.text = bio
 
-                if (!profileImageUrl.isNullOrEmpty()) {
+                if (!isAdded) return  // Check again before loading image
+                
+                if (!photoUrl.isNullOrEmpty()) {
                     Glide.with(requireContext())
-                        .load(profileImageUrl)
+                        .load(photoUrl)
                         .placeholder(R.drawable.ic_person)
                         .error(R.drawable.ic_person)
                         .into(profileImage)
@@ -89,34 +93,31 @@ class UserDetailsFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                if (!isAdded) return
                 Toast.makeText(requireContext(), "Failed to load user data", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun loadUserPosts() {
-        val currentUserId = auth.currentUser?.uid ?: return
-        val postsRef = FirebaseDatabase.getInstance().getReference("publications")
-
-        postsRef.orderByChild("userId").equalTo(currentUserId)
+    private fun loadUserPosts(userId: String) {
+        postsRef.orderByChild("userId").equalTo(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    if (!isAdded) return  // Check if fragment is attached
+                    
                     userPostsList.clear()
                     for (postSnapshot in snapshot.children) {
-                        val imageUrl = postSnapshot.child("photoUrl").getValue(String::class.java)
+                        val imageUrl = postSnapshot.child("imageUrl").getValue(String::class.java)
                         if (!imageUrl.isNullOrEmpty()) {
                             userPostsList.add(imageUrl)
                         }
                     }
-
-                    // Log the retrieved posts
-                    Log.d("UserDetailsFragment", "User Posts: $userPostsList")
-
                     userPostsAdapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(requireContext(), "Failed to load user posts", Toast.LENGTH_SHORT).show()
+                    if (!isAdded) return
+                    Toast.makeText(requireContext(), "Failed to load posts", Toast.LENGTH_SHORT).show()
                 }
             })
     }
