@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Postify</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ex_gmail_com">ex@gmail.com</string>
+    <string name="paswordhint">*******</string>
+    <string name="the_best_palace_to_share_your_posts">The best Palace To Share Your Posts</string>
+    <string name="don_t_have_account">Don\'t have account</string>
+    <string name="signup">Signup</string>
+    <string name="welcome_to_our_community">Welcome To Our Community</string>
+    <string name="profile_image">Profile image</string>
+    <!-- Authentication -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create Account</string>
+    <string name="dont_have_account">Don\'t have an account? Sign up</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="sign_out">Sign Out</string>
+
+    <!-- Navigation -->
+    <string name="feed">Feed</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="post_detail">Post</string>
+    <string name="create_post">Create Post</string>
+
+    <!-- Profile -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="bio">Bio</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="posts">Posts</string>
+
+    <!-- Posts -->
+    <string name="whats_on_your_mind">What\'s on your mind?</string>
+    <string name="post">Post</string>
+    <string name="add_image">Add Image</string>
+    <string name="remove_image">Remove Image</string>
+    <string name="post_image">Post Image</string>
+    <string name="like">Like</string>
+    <string name="comments">Comments</string>
+    <string name="add_a_comment">Add a comment...</string>
+    <string name="send_comment">Send Comment</string>
+    <string name="edit_post">Edit Post</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="post_content">Post Content</string>
+    <string name="delete_post_confirmation">Are you sure you want to delete this post? This action cannot be undone.</string>
+
+    <!-- Search -->
+    <string name="search_users">Search users...</string>
+
+    <!-- Empty States -->
+    <string name="no_posts_yet">No posts yet</string>
+    <string name="no_comments_yet">No comments yet</string>
+    <string name="no_users_found">No users found</string>
+
+    <!-- Common -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id">postify_channel</string>
+    <string name="publier">Publier</string>
+    <string name="entrez_votre_caption">Entrez Votre Caption</string>
+    <string name="choisir_une_image">Choisir une image</string>
+    <string name="prendre_une_photo">Prendre une photo</string>
+    <string name="choisir_depuis_la_galerie">Choisir depuis la galerie</string>
+    <string name="publiez_vos_moments_en_explorant_la_tunisie">Publiez Vos Moments En Explorant La Tunisie !</string>
+
+</resources>

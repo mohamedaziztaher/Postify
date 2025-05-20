@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="epi.gl4c.finalversion.main.HomeFragment"
+        android:label="Accueil" />
+    <fragment
+        android:id="@+id/fab_add"
+        android:name="epi.gl4c.finalversion.main.AddPostFragment"
+        android:label="Ajouter" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="epi.gl4c.finalversion.main.ProfileFragment"
+        android:label="Profil" />
+</navigation>

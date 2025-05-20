@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041226845554",
+    "project_id": "finalversion-8903b",
+    "storage_bucket": "finalversion-8903b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041226845554:android:a1aa1a0a1ef5da6af261eb",
+        "android_client_info": {
+          "package_name": "epi.gl4c.finalversion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYdkcZsKxbytcWukGoiUcp4LSLxPy7ygI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
