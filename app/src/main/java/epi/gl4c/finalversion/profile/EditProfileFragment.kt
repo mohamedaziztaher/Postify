@@ -2,6 +2,7 @@ package epi.gl4c.finalversion.profile
 
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import epi.gl4c.finalversion.R
 import epi.gl4c.finalversion.databinding.BottomSheetImagePickerBinding
 import epi.gl4c.finalversion.databinding.FragmentEditProfileBinding
 import java.io.File
@@ -61,9 +63,39 @@ class EditProfileFragment : Fragment() {
     ) { perms ->
         val allGranted = perms.entries.all { it.value }
         if (allGranted) {
-            Toast.makeText(requireContext(), "Permissions granted", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "All permissions granted")
+            pendingAction?.invoke()
+            pendingAction = null
         } else {
-            Toast.makeText(requireContext(), "Permissions denied. Please enable them in settings.", Toast.LENGTH_LONG).show()
+            Log.w(TAG, "Some permissions denied")
+            Toast.makeText(requireContext(), "Permissions required to select image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private var pendingAction: (() -> Unit)? = null
+
+    private fun requestPermissionsThen(action: () -> Unit) {
+        val permissions = mutableListOf<String>()
+        
+        // Camera permission is always needed
+        permissions.add(android.Manifest.permission.CAMERA)
+        
+        // Storage permission only for Android < 13
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            permissions.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        val neededPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (neededPermissions.isEmpty()) {
+            // All permissions granted, execute action immediately
+            action.invoke()
+        } else {
+            // Store action and request permissions
+            pendingAction = action
+            permissionLauncher.launch(neededPermissions.toTypedArray())
         }
     }
 
@@ -118,7 +150,6 @@ class EditProfileFragment : Fragment() {
             if (snapshot.exists()) {
                 val username = snapshot.child("username").getValue(String::class.java) ?: ""
                 val bio = snapshot.child("bio").getValue(String::class.java) ?: ""
-                val gender = snapshot.child("gender").getValue(String::class.java) ?: ""
                 val photoUrl = snapshot.child("photoUrl").getValue(String::class.java)
 
                 // Set the values to views
@@ -144,36 +175,19 @@ class EditProfileFragment : Fragment() {
 
         sheetBinding.btnCamera.setOnClickListener {
             requestPermissionsThen {
+                dialog.dismiss()
                 cameraLauncher.launch(imageUri)
             }
-            dialog.dismiss()
         }
 
         sheetBinding.btnGallery.setOnClickListener {
             requestPermissionsThen {
+                dialog.dismiss()
                 galleryLauncher.launch("image/*")
             }
-            dialog.dismiss()
         }
 
         dialog.show()
-    }
-
-    private fun requestPermissionsThen(after: () -> Unit) {
-        val perms = mutableListOf(android.Manifest.permission.CAMERA)
-        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.S_V2) {
-            perms.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-
-        val neededPermissions = perms.filter {
-            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
-        }
-
-        if (neededPermissions.isEmpty()) {
-            after()
-        } else {
-            permissionLauncher.launch(neededPermissions.toTypedArray())
-        }
     }
 
     private fun uploadToCloudinary() {
@@ -251,6 +265,18 @@ class EditProfileFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
                 binding.progressText.visibility = View.GONE
                 binding.btnSave.isEnabled = true
+
+                // Navigate back to UserDetails
+                parentFragmentManager.popBackStack()
+
+                // Optional: Refresh UserDetails
+                parentFragment?.let { parent ->
+                    if (parent is ProfileFragment) {
+                        parent.childFragmentManager.beginTransaction()
+                            .replace(R.id.profile_main_container, UserDetailsFragment())
+                            .commit()
+                    }
+                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(requireContext(), "Failed to update profile: ${e.message}", Toast.LENGTH_SHORT).show()

@@ -1,4 +1,3 @@
-
 package epi.gl4c.finalversion.main
 
 import android.content.pm.PackageManager
@@ -120,6 +119,8 @@ class AddPostFragment : Fragment() {
         dialog.show()
     }
 
+    private var pendingAction: (() -> Unit)? = null
+
     private fun requestPermissionsThen(after: () -> Unit) {
         Log.d(TAG, "requestPermissionsThen: Checking permissions")
         val perms = mutableListOf(android.Manifest.permission.CAMERA)
@@ -140,6 +141,7 @@ class AddPostFragment : Fragment() {
         } else {
             Log.d(TAG, "requestPermissionsThen: Requesting permissions: $neededPermissions")
             // Request only the permissions that are not granted
+            pendingAction = after
             permissionLauncher.launch(neededPermissions.toTypedArray())
         }
     }
@@ -150,8 +152,9 @@ class AddPostFragment : Fragment() {
         val allGranted = perms.entries.all { it.value }
         if (allGranted) {
             Log.d(TAG, "permissionLauncher: All permissions granted")
-            // All permissions granted
-            Toast.makeText(requireContext(), "Permissions granted", Toast.LENGTH_SHORT).show()
+            // All permissions granted, launch the pending action
+            pendingAction?.invoke()
+            pendingAction = null
         } else {
             Log.w(TAG, "permissionLauncher: Permissions denied")
             // At least one permission denied

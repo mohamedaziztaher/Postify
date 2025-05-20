@@ -48,7 +48,7 @@ class HomeFragment : Fragment() {
         val hasShownDialog = sharedPreferences.getBoolean("hasShownProfileDialog", false)
 
         if (!hasShownDialog) {
-            databaseRef.child("profileComplete").get().addOnSuccessListener { snapshot ->
+            databaseRef.child("isProfileComplete").get().addOnSuccessListener { snapshot ->
                 val profileComplete = snapshot.getValue(Boolean::class.java) ?: false
                 if (!profileComplete && isAdded) { // Ensure the fragment is still attached
                     showCompleteProfileDialog()

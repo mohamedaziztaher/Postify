@@ -2,9 +2,11 @@ package epi.gl4c.finalversion.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -21,12 +23,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import epi.gl4c.finalversion.R
 import epi.gl4c.finalversion.model.Post
 import com.bumptech.glide.Glide
-import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import epi.gl4c.finalversion.auth.LoginActivity
 import epi.gl4c.finalversion.model.Comment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import epi.gl4c.finalversion.profile.OtherUserProfileFragment
 
 class PostAdapter (
     private val context: Context,
@@ -174,6 +176,36 @@ class PostAdapter (
                 context.startActivity(Intent(context, LoginActivity::class.java))
             }
         }
+
+        // Add click listener for the entire post
+        holder.itemView.setOnClickListener {
+            navigateToUserDetails(publication.getUserId())
+        }
+
+        // Add click listener for username and avatar
+        holder.tvUsername.setOnClickListener {
+            navigateToUserDetails(publication.getUserId())
+        }
+
+        holder.ivUserAvatar.setOnClickListener {
+            navigateToUserDetails(publication.getUserId())
+        }
+    }
+
+    private fun navigateToUserDetails(userId: String?) {
+        if (userId == null) return
+        
+        val fragment = OtherUserProfileFragment().apply {
+            arguments = Bundle().apply {
+                putString("userId", userId)
+            }
+        }
+
+        val activity = context as? AppCompatActivity
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.fragment_container, fragment)
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     private fun updateLikeButton(button: MaterialButton, publicationId: String) {
