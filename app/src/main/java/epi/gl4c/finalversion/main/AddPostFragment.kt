@@ -39,22 +39,28 @@ class AddPostFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var publicationsRef: DatabaseReference
 
-    private val cameraLauncher = registerForActivityResult(
-        ActivityResultContracts.TakePicture()
-    ) { success ->
-        if (success && imageUri != null) {
-            Glide.with(this).load(imageUri).into(binding.imageView)
-        } else {
-            Toast.makeText(requireContext(), "Camera capture failed", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
         uri?.let {
             imageUri = it
-            Glide.with(this).load(it).into(binding.imageView)
+            Glide.with(this)
+                .load(it)
+                .fitCenter()
+                .into(binding.imageView)
+        }
+    }
+
+    private val cameraLauncher = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success && imageUri != null) {
+            Glide.with(this)
+                .load(imageUri)
+                .fitCenter()
+                .into(binding.imageView)
+        } else {
+            Toast.makeText(requireContext(), "Camera capture failed", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -65,10 +65,11 @@
 
         <ImageView
             android:id="@+id/imageViewPublication"
-            android:layout_width="333dp"
-            android:layout_height="177dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -71,7 +71,7 @@ class UserDetailsFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val username = snapshot.child("username").getValue(String::class.java) ?: "User"
                 val bio = snapshot.child("bio").getValue(String::class.java) ?: ""
-                val profileImageUrl = snapshot.child("profileUrl").getValue(String::class.java)
+                val profileImageUrl = snapshot.child("photoUrl").getValue(String::class.java)
 
                 // Log the retrieved user data
                 Log.d("UserDetailsFragment", "Username: $username, Bio: $bio, ProfileImageUrl: $profileImageUrl")
