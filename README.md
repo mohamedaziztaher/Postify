@@ -17,7 +17,7 @@ Postify is a modern social media Android application built with Material Design 
 
 ### Authentication Flow
 <div style="display: flex; gap: 10px;">
-    <img src="app/src/main/assets/addPost.png" width="200" alt="Login Screen"/>
+    <img src="app/src/main/assets/loginscreen.png" width="200" alt="Login Screen"/>
     <img src="app/src/main/assets/signup.png" width="200" alt="Sign Up Screen"/>
     <img src="app/src/main/assets/permission.png" width="200" alt="Profile Completion"/>
 </div>
