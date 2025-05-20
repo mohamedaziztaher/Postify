@@ -15,6 +15,7 @@
         android:maxSdkVersion="32" />
 
     <application
+        android:name=".MyApp"
         android:theme="@style/Theme.FinalVersion"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
