@@ -3,6 +3,36 @@
 ## Overview
 Postify is a modern social media Android application built with Material Design 3 and Firebase, enabling users to share moments, connect with others, and engage with content through an intuitive and visually appealing interface.
 
+## Screenshots
+
+### Authentication Flow
+<div style="display: flex; gap: 10px;">
+    <img src="assets/screenshots/login.png" width="200" alt="Login Screen"/>
+    <img src="assets/screenshots/signup.png" width="200" alt="Sign Up Screen"/>
+    <img src="assets/screenshots/profile_completion.png" width="200" alt="Profile Completion"/>
+</div>
+
+### Main Features
+<div style="display: flex; gap: 10px;">
+    <img src="assets/screenshots/home_feed.png" width="200" alt="Home Feed"/>
+    <img src="assets/screenshots/post_detail.png" width="200" alt="Post Detail"/>
+    <img src="assets/screenshots/create_post.png" width="200" alt="Create Post"/>
+</div>
+
+### Profile & Social
+<div style="display: flex; gap: 10px;">
+    <img src="assets/screenshots/profile.png" width="200" alt="Profile Screen"/>
+    <img src="assets/screenshots/edit_profile.png" width="200" alt="Edit Profile"/>
+    <img src="assets/screenshots/other_profile.png" width="200" alt="Other User Profile"/>
+</div>
+
+### Interactions
+<div style="display: flex; gap: 10px;">
+    <img src="assets/screenshots/comments.png" width="200" alt="Comments Section"/>
+    <img src="assets/screenshots/likes.png" width="200" alt="Likes Interaction"/>
+    <img src="assets/screenshots/image_picker.png" width="200" alt="Image Picker"/>
+</div>
+
 ## Features
 
 ### Authentication
