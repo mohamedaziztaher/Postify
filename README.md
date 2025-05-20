@@ -1,10 +1,10 @@
 # Postify - Social Media Android App
 
 <a href="https://github.com/medaziztaher">
-  <img src="https://avatars.githubusercontent.com/u/medaziztaher?v=4" width="50px;" alt="medaziztaher"/>
+  <img src="https://avatars.githubusercontent.com/u/202412781?v=4" width="50px;" alt="medaziztaher"/>
 </a>
 <a href="https://github.com/kamel-toumi">
-  <img src="https://avatars.githubusercontent.com/u/kamel-toumi?v=4" width="50px;" alt="kameltoumi"/>
+  <img src="https://avatars.githubusercontent.com/u/73285732?v=4" width="50px;" alt="kameltoumi"/>
 </a>
 
 
